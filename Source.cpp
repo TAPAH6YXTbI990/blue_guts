@@ -15,7 +15,7 @@ int main()
 
     if (img.empty())
     {
-        std::cerr << "Îøèáêà ïðè çàãðóçêå èçîáðàæåíèÿ!" << std::endl;
+        std::cerr << "ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã¯Ã°Ã¨ Ã§Ã Ã£Ã°Ã³Ã§ÃªÃ¥ Ã¨Ã§Ã®Ã¡Ã°Ã Ã¦Ã¥Ã­Ã¨Ã¿!" << std::endl;
         return -1; 
     }
 
@@ -24,41 +24,9 @@ int main()
 
     resize(img, img, Size(down_width, down_height), INTER_LINEAR); 
 
-    Mat grayImg, hsvImg, labImg, xyzImg, edges, mask, result;
+    Mat hsvImg, mask, result;
 
-    cvtColor(img, grayImg, COLOR_BGR2GRAY);
     cvtColor(img, hsvImg, COLOR_BGR2HSV);
-    // cvtColor(img, labImg, COLOR_BGR2Lab);
-    // cvtColor(img, xyzImg, COLOR_BGR2XYZ); 
-    
-    /*
-    Canny(grayImg, edges, 50, 150, 3);
-    GaussianBlur(grayImg, grayImg, Size(9,9), 2, 2);
-    
-    std::vector<Vec2f> lines; 
-    HoughLines(edges, lines,1, CV_PI/5, 200); 
-
-    for (size_t i = 0; i < lines.size();i++) { 
-        float rho = lines[i][0]; 
-        float theta = lines[i][1]; 
-        double a = cos(theta), b = sin(theta); 
-        double x0 = a * rho, y0 = b * rho; 
-        Point pt1(cvRound(x0 + 1000 * (-b)), cvRound(y0 + 1000 * (a))); 
-        Point pt2(cvRound(x0 - 1000 * (-b)), cvRound(y0 - 1000 * (a))); 
-        line(img, pt1, pt2, Scalar(0, 0, 255), 2, LINE_AA); 
-    } 
-    
-    std::vector<Vec3f> circles; 
-    HoughCircles(grayImg, circles, HOUGH_GRADIENT, 1, grayImg.rows / 8, 100, 30, 30, 100); 
-
-    for (size_t i = 0; i < circles.size(); i++) { 
-        Vec3i c = circles[i]; 
-        Point center(c[0], c[1]); 
-        int radius = c[2]; 
-        circle(img, center, 3, Scalar(0, 255, 0), -1, LINE_AA); 
-        circle(img, center, radius, Scalar(255, 0, 0), 2, LINE_AA); 
-    }
-    */
 
     inRange(hsvImg, Scalar(100, 150, 0), Scalar(140, 255, 255), mask);
 
@@ -67,24 +35,8 @@ int main()
     imshow("OrigImg", img); 
     imshow("Mask", mask);
     imshow("Result", result); 
-    //imshow("Edges", edges);
-    //imshow("GrayImg", grayImg);
-    // imshow("HSVimg", hsvImg);
-    // imshow("LabImg", labImg);
-    // imshow("xyzImg", xyzImg);
 
     int k = waitKey(0); 
 
     return 0;
 }
-
-
-/*
-    line(img, Point(520, 360), Point(600, 360), Scalar(255, 60, 5), 10);
-    rectangle(img, Point(560, 30), Point(600, 80), Scalar(80, 3, 252), 4);
-    circle(img, Point(680, 330), 50, Scalar(0, 0, 0), 4);
-    ellipse(img, Point(200, 100), Size(45, 120), 15, 3, 600, Scalar(255, 60, 5), 4);
-    std::vector<Point> points = { {50,400},{100,350},{150,400} };
-    polylines(img, points, true, Scalar(255, 60, 5), 4);
-    putText(img, "TEST", Point(530, 350), FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 60, 5), 2);
-*/
